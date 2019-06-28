@@ -1,5 +1,4 @@
 const canvas = document.getElementById('board');
-const passButton = document.getElementById('pass');
 
 const wait = ms => new Promise(resolve => setTimeout(() => resolve(), ms));
 
@@ -17,7 +16,7 @@ const draw = (b) => {
   }
 
   // draw vertial lines
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 7; i += 1) {
     const ctx = canvas.getContext('2d');
     ctx.lineWidth = 0.3;
     ctx.fillStyle = 'black';
@@ -28,7 +27,7 @@ const draw = (b) => {
   }
 
   // draw horizontal lines
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 7; i += 1) {
     const ctx = canvas.getContext('2d');
     ctx.lineWidth = 0.3;
     ctx.fillStyle = 'black';
@@ -39,15 +38,15 @@ const draw = (b) => {
   }
 
   // draw stones
-  for (let i = 0; i < 8; i++) {
-    for (let j = 0; j < 8; j++) {
-      if (b[i][j] == 1) {
+  for (let i = 0; i < 8; i += 1) {
+    for (let j = 0; j < 8; j += 1) {
+      if (b[i][j] === 1) {
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = 'black';
         ctx.beginPath();
         ctx.arc(width * (i + 0.5) / 8, height * (j + 0.5) / 8, height / 20, Math.PI * 2, false);
         ctx.fill();
-      } else if (b[i][j] == 2) {
+      } else if (b[i][j] === 2) {
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = 'white';
         ctx.beginPath();
@@ -62,11 +61,6 @@ import('reversi-wasm-core').then(async ({ Reversi }) => {
   document.getElementById('start').addEventListener('click', async () => {
     const strategy_cpu = [...document.getElementById('strategy_cpu').options].filter(i => i.selected)[0].value;
     const player_user = [...document.getElementById('player_user').options].filter(i => i.selected)[0].value;
-
-    console.log({
-      player_user,
-      strategy_cpu,
-    });
 
     // TODO: allow users to restart in midst of the game
     document.getElementById('start').disabled = true;
