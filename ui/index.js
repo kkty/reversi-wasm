@@ -1,7 +1,7 @@
 const canvas = document.getElementById('board');
 const passButton = document.getElementById('pass');
 
-const wait = ms => new Promise((resolve) => setTimeout(() => resolve(), ms));
+const wait = ms => new Promise(resolve => setTimeout(() => resolve(), ms));
 
 // TODO: this causes some problems when the canvas size changes
 const height = canvas.clientHeight;
@@ -42,13 +42,13 @@ const draw = (b) => {
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
       if (b[i][j] == 1) {
-        let ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
         ctx.fillStyle = 'black';
         ctx.beginPath();
         ctx.arc(width * (i + 0.5) / 8, height * (j + 0.5) / 8, height / 20, Math.PI * 2, false);
         ctx.fill();
       } else if (b[i][j] == 2) {
-        let ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
         ctx.fillStyle = 'white';
         ctx.beginPath();
         ctx.arc(width * (i + 0.5) / 8, height * (j + 0.5) / 8, height / 20, Math.PI * 2, false);
@@ -56,12 +56,12 @@ const draw = (b) => {
       }
     }
   }
-}
+};
 
-import("reversi-wasm-core").then(async ({ Reversi }) => {
-  document.getElementById("start").addEventListener('click', async () => {
-    const strategy_cpu = [...document.getElementById("strategy_cpu").options].filter(i => i.selected)[0].value;
-    const player_user = [...document.getElementById("player_user").options].filter(i => i.selected)[0].value;
+import('reversi-wasm-core').then(async ({ Reversi }) => {
+  document.getElementById('start').addEventListener('click', async () => {
+    const strategy_cpu = [...document.getElementById('strategy_cpu').options].filter(i => i.selected)[0].value;
+    const player_user = [...document.getElementById('player_user').options].filter(i => i.selected)[0].value;
 
     console.log({
       player_user,
@@ -69,9 +69,9 @@ import("reversi-wasm-core").then(async ({ Reversi }) => {
     });
 
     // TODO: allow users to restart in midst of the game
-    document.getElementById("start").disabled = true;
-    document.getElementById("player_user").disabled = true;
-    document.getElementById("strategy_cpu").disabled = true;
+    document.getElementById('start').disabled = true;
+    document.getElementById('player_user').disabled = true;
+    document.getElementById('strategy_cpu').disabled = true;
 
     const reversi = Reversi.new(player_user, strategy_cpu);
 
@@ -79,7 +79,7 @@ import("reversi-wasm-core").then(async ({ Reversi }) => {
 
     draw_board();
 
-    if (player_user === "white") {
+    if (player_user === 'white') {
       reversi.wait_for_cpu();
       await wait(1000);
       draw_board();
