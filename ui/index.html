@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>reversi-wasm</title>
+  <style>
+    * {
+      font-family: "Noto Sans JP";
+    }
+
+    body {
+      padding: 30px;
+      text-align: center;
+    }
+
+    #board {
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mb-3">
+    <select id="strategy_cpu">
+      <option>naive</option>
+      <option>random</option>
+      <option>minmax2</option>
+      <option>minmax4</option>
+      <option>minmax8</option>
+    </select>
+    <select id="player_user">
+      <option>black</option>
+      <option>white</option>
+    </select>
+    <button id="start">start</button>
+  </div>
+
+  <div>
+    <canvas id="board" width="300" height="300"></canvas>
+  </div>
+  <script src="./index.js"></script>
+</body>
+
+</html>
