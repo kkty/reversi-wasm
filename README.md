@@ -4,7 +4,7 @@
 - can be compiled to WebAssembly
 - runs in most browsers
 - contains three algorithms
-  - simple min-max with the tree depths of 2, 4 and 8
+  - simple min-max with the tree depths of 1, 2 and 4
   - random
   - naive (selects the right-most and top-most)
 - deployed at https://reversi.kkty.jp
