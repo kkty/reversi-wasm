@@ -20,7 +20,7 @@ pub struct MinMaxStrategy {
 
 struct Node {
   board: Board,
-  edges: Vec<(Coordinate, Node)>,
+  edges: Vec<(Option<Coordinate>, Node)>,
 }
 
 impl MinMaxStrategy {
@@ -73,19 +73,25 @@ impl MinMaxStrategy {
     score
   }
 
-  fn construct_tree(&self, board: Board, depth: i32) -> Node {
+  fn construct_tree(&self, board: Board, depth: i32, player: Player) -> Node {
     let mut root = Node {
       board,
       edges: Vec::new(),
     };
 
     if depth > 0 {
+      if !board.has_valid_move(player) {
+        root
+          .edges
+          .push((None, self.construct_tree(board, depth - 1, player.other())))
+      }
+
       for x in 0..8 {
         for y in 0..8 {
-          if let Some(board_updated) = board.simulate(Coordinate { x, y }, self.player) {
+          if let Some(board_updated) = board.simulate(Coordinate { x, y }, player) {
             root.edges.push((
-              Coordinate { x, y },
-              self.construct_tree(board_updated, depth - 1),
+              Some(Coordinate { x, y }),
+              self.construct_tree(board_updated, depth - 1, player.other()),
             ));
           }
         }
@@ -111,7 +117,7 @@ impl MinMaxStrategy {
         let s = self.eval_tree(&edge.1, !opponent).0;
         if s < score {
           score = s;
-          c = Some(edge.0);
+          c = edge.0;
         }
       }
     } else {
@@ -122,7 +128,7 @@ impl MinMaxStrategy {
         let s = self.eval_tree(&edge.1, !opponent).0;
         if s > score {
           score = s;
-          c = Some(edge.0);
+          c = edge.0;
         }
       }
     }
@@ -141,7 +147,7 @@ impl MinMaxStrategy {
 
 impl Strategy for MinMaxStrategy {
   fn make_move(&mut self, board: Board) -> Option<Coordinate> {
-    let tree = self.construct_tree(board, self.depth);
+    let tree = self.construct_tree(board, self.depth, self.player);
     log(&format!("tree size: {}", self.tree_size(&tree)));
     return self.eval_tree(&tree, false).1;
   }
