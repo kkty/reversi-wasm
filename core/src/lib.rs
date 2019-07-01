@@ -37,13 +37,13 @@ impl Reversi {
 
     let strategy_cpu: Box<Strategy> = match strategy_cpu {
       "random" => Box::new(RandomStrategy::new(player_cpu)),
+      "minmax1" => Box::new(MinMaxStrategy::new(player_cpu, 1)),
       "minmax2" => Box::new(MinMaxStrategy::new(player_cpu, 2)),
       "minmax4" => Box::new(MinMaxStrategy::new(player_cpu, 4)),
-      "minmax8" => Box::new(MinMaxStrategy::new(player_cpu, 8)),
       "naive" => Box::new(NaiveStrategy::new(player_cpu)),
       _ => {
         return Err(JsValue::from(
-          "strategy_cpu should be 'random', 'minmax2', 'minmax4', 'minmax8' or 'naive'",
+          "strategy_cpu should be 'random', 'minmax1', 'minmax2', 'minmax4' or 'naive'",
         ))
       }
     };

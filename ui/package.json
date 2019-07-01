@@ -8,7 +8,7 @@
     "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
-    "reversi-wasm-core": "^0.1.0"
+    "reversi-wasm-core": "^0.1.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",
