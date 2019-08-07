@@ -9,7 +9,7 @@
   - naive (selects the right-most and top-most)
 - deployed at https://reversi.kkty.jp
 
-![screenshot](https://user-images.githubusercontent.com/23012087/60339994-512d6200-99e5-11e9-83f1-caa682b2b827.gif)
+![screenshot](https://storage.googleapis.com/kkty-assets/60339994-512d6200-99e5-11e9-83f1-caa682b2b827.gif)
 
 *sizes of constructed game trees are logged in console (min-max only)*
 
